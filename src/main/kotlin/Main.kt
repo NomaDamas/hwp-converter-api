@@ -1,4 +1,5 @@
 import io.javalin.Javalin
+import kr.dogfoot.hwplib.tool.textextractor.TextExtractMethod
 import java.io.File
 
 fun main(args: Array<String>) {
@@ -14,7 +15,13 @@ fun main(args: Array<String>) {
         if (file.filename().endsWith(".hwp")) {
             val hwpFile = readHwp(savedFile.path)
             val hwpText = hwpFile?.let {
-                extractTextHwp(it)
+                val option = ctx.queryParam("option") ?: "main-only"
+                val textExtractMethod = if (option == "all") {
+                    TextExtractMethod.InsertControlTextBetweenParagraphText
+                } else {
+                    TextExtractMethod.OnlyMainParagraph
+                }
+                extractTextHwp(it, textExtractMethod)
             }
 
             hwpText?.let {
@@ -26,22 +33,24 @@ fun main(args: Array<String>) {
                 ctx.result("extract file failed")
             }
         } else if (file.filename().endsWith(".hwpx")) {
-            val hwpxFile = readHwpx(savedFile.path)
-            val hwpxText = hwpxFile?.let {
-                extractTextHwpx(it)
-            }
-
-            hwpxText?.let {
-                removeFile(savedFilepath)
-                ctx.contentType("text/plain")
-                ctx.result(it)
-            } ?: {
-                ctx.status(400)
-                ctx.result("extract file failed")
-            }
+//            val hwpxFile = readHwpx(savedFile.path)
+//            val hwpxText = hwpxFile?.let {
+//                extractTextHwpx(it)
+//            }
+//
+//            hwpxText?.let {
+//                removeFile(savedFilepath)
+//                ctx.contentType("text/plain")
+//                ctx.result(it)
+//            } ?: {
+//                ctx.status(400)
+//                ctx.result("extract file failed")
+//            }
+            ctx.status(404)
+            ctx.result("hwpx file does not support yet because of error at hwpxlib")
         } else {
             ctx.status(404)
-            ctx.result("please upload hwp or hwpx file")
+            ctx.result("please upload hwp file")
         }
     }
 }

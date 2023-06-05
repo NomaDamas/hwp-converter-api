@@ -14,6 +14,6 @@ fun readHwp(filepath: String): HWPFile? {
     }
 }
 
-fun extractTextHwp(hwpFile: HWPFile): String {
-    return TextExtractor.extract(hwpFile, TextExtractMethod.InsertControlTextBetweenParagraphText)
+fun extractTextHwp(hwpFile: HWPFile, textExtractMethod: TextExtractMethod): String {
+    return TextExtractor.extract(hwpFile, textExtractMethod)
 }

@@ -3,7 +3,7 @@ import kr.dogfoot.hwpxlib.reader.HWPXReader
 import kr.dogfoot.hwpxlib.tool.textextractor.TextExtractMethod
 import kr.dogfoot.hwpxlib.tool.textextractor.TextExtractor
 
-fun readHwpx(filepath: String): HWPXFile {
+fun readHwpx(filepath: String): HWPXFile? {
     return HWPXReader.fromFilepath(filepath)
 }
 
