@@ -6,8 +6,9 @@ Javalin과 Kotlin을 이용해서 간단한 API 서버를 구축하였습니다.
 
 ## Install
 ### Docker
+- [Docker Hub](https://hub.docker.com/r/vkehfdl1/hwp-converter-api)
 ```bash
-docker run -it -d -p 7000:7000 vkehfdl1/hwp-converter-api
+docker run -it -d -p 7000:7000 vkehfdl1/hwp-converter-api:1.0.0
 ```
 
 ## Usage
